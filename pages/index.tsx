@@ -1,50 +1,27 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import FeaturedPosts from "../components/home-page/featured-posts";
 import Hero from "../components/home-page/hero";
+import { PostData } from "../lib/data.models";
+import { getFeaturedPosts } from "../lib/posts-util";
 
-const DUMMY_POSTS = [
-  {
-    slug: "getting-started-with-nextjs",
-    title: "Getting Started with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is the React framework for production and ships with built in server side rendering",
-    date: "2022-08-23",
-  },
-  {
-    slug: "getting-started-with-nextjs2",
-    title: "Getting Started with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is the React framework for production and ships with built in server side rendering",
-    date: "2022-08-23",
-  },
-  {
-    slug: "getting-started-with-nextjs3",
-    title: "Getting Started with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is the React framework for production and ships with built in server side rendering",
-    date: "2022-08-23",
-  },
-  {
-    slug: "getting-started-with-nextjs4",
-    title: "Getting Started with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is the React framework for production and ships with built in server side rendering",
-    date: "2022-08-23",
-  },
-];
+interface Props{
+  posts: PostData[]
+}
 
-const HomePage: NextPage = () => {
+const HomePage: NextPage = ({posts}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Hero />
-      <FeaturedPosts posts={DUMMY_POSTS} />
+      <FeaturedPosts posts={posts} />
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps = () => {
+  const featuredPosts = getFeaturedPosts();
+
+  return { props: { posts: featuredPosts } };
+}
 
 export default HomePage;
 //1) Hero Page
