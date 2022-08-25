@@ -4,6 +4,7 @@ import type {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 import PostContent from "../../components/posts/post-detail/post-content";
 import { getPostData, getPostFiles } from "../../lib/posts-util";
@@ -11,7 +12,15 @@ import { getPostData, getPostFiles } from "../../lib/posts-util";
 const PostDetailPage: NextPage = ({
   post,
 }: InferGetStaticPropsType<GetStaticProps>) => {
-  return <PostContent post={post} />;
+  return (
+    <>
+      <Head>
+        <title>{post.title}</title>\
+        <meta name='description' content={post.excerpt} />
+      </Head>
+      <PostContent post={post} />
+    </>
+  );
 };
 
 interface SlugParam extends ParsedUrlQuery {

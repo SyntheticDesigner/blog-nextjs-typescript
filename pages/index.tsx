@@ -1,16 +1,18 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import Head from "next/head";
 import FeaturedPosts from "../components/home-page/featured-posts";
 import Hero from "../components/home-page/hero";
-import { PostData } from "../lib/data.models";
 import { getFeaturedPosts } from "../lib/posts-util";
 
-interface Props{
-  posts: PostData[]
-}
-
-const HomePage: NextPage = ({posts}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const HomePage: NextPage = ({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
+      <Head>
+        <title>Synthetic Blog</title>
+        <meta name='description' content='This is my blog' />
+      </Head>
       <Hero />
       <FeaturedPosts posts={posts} />
     </>
@@ -21,7 +23,7 @@ export const getStaticProps: GetStaticProps = () => {
   const featuredPosts = getFeaturedPosts();
 
   return { props: { posts: featuredPosts } };
-}
+};
 
 export default HomePage;
 //1) Hero Page
