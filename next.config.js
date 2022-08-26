@@ -2,6 +2,7 @@
 
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
 
+//these environment variables will be invalidated after development
 const nextConfig = (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
